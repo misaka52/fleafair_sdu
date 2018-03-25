@@ -73,7 +73,6 @@ public class testClass {
     public static void swap(Integer a, Integer b) {
         if(a == null || b == null)
             return;
-
         Class<Integer> aClass = (Class<Integer>) a.getClass();
         try {
             Field value = aClass.getDeclaredField("value");
