@@ -48,7 +48,7 @@ public class ForeAuthFilter implements Filter{
             if(!Arrays.asList(noNeedAuthPage).contains(method)){
                 User user =(User) request.getSession().getAttribute("user");
                 if(null==user){
-                    response.sendRedirect("login.jsp");
+                    response.sendRedirect("toLogin");
                     return;
                 }
             }

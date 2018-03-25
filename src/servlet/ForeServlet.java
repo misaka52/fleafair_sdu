@@ -1,5 +1,7 @@
 package servlet;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,9 +28,20 @@ import dao.OrderDAO;
 import dao.ProductDAO;
 import dao.ProductImageDAO;
 import util.Page;
+import util.VerifyCodeUtils;
 
 public class ForeServlet extends BaseForeServlet {
-	
+
+	public String toLogin(HttpServletRequest request, HttpServletResponse response, Page page) throws IOException {
+        String vertifyCode = VerifyCodeUtils.generateVerifyCode(4);
+        File vertifyJpg = new File(request.getSession().getServletContext().getRealPath("img/verifies"),  "vertify.jpg");
+        VerifyCodeUtils.outputImage(200, 80, vertifyJpg, vertifyCode);
+
+        //将生成的验证码存在session中
+        request.getSession().setAttribute("vertifyCode", vertifyCode);
+		return "login.jsp";
+	}
+
 	public String home(HttpServletRequest request, HttpServletResponse response, Page page) {
 		List<Category> cs = new CategoryDAO().list();
 		new ProductDAO().fill(cs);
@@ -62,15 +75,22 @@ public class ForeServlet extends BaseForeServlet {
     }   
 	
 	public String login(HttpServletRequest request, HttpServletResponse response, Page page) {
+		String verifyCode = request.getParameter("verifyCode");
 		long id = Long.parseLong(request.getParameter("id"));
+		System.out.println(request.getSession().getAttribute("vertifyCode") + "," + verifyCode);
+		if(!verifyCode.equalsIgnoreCase((String)request.getSession().getAttribute("vertifyCode"))) {
+			request.setAttribute("msg", "验证码输入错误");
+			request.setAttribute("id", id);
+			return "foretoLogin";
+		}
 //	    name = HtmlUtils.htmlEscape(name);
-	    String password = request.getParameter("password");     
-	     
+	    String password = request.getParameter("password");
 	    User user = userDAO.get(id,password);
 	      
 	    if(null==user){
 	        request.setAttribute("msg", "账号密码错误");
-	        return "login.jsp"; 
+	        request.setAttribute("id", id);
+	        return "foretoLogin";
 	    }
 	    request.getSession().setAttribute("user", user);
 	    return "@forehome"; 

@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="fleafair_sdu:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/fleafair_sdu_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="fleafair_sdu" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="fleafair_sdu/web/Web" />
+    </root>
+  </artifact>
+</component>

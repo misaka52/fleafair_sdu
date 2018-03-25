@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
+         pageEncoding="UTF-8" isELIgnored="false"%>
  
 <script>
 $(function(){
@@ -28,8 +28,7 @@ $(function(){
 </script>
  
 <div id="loginDiv" style="position: relative">
-  
-    
+
     <img id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackimg.jpg">
      
     <form class="loginForm" action="forelogin" method="post">
@@ -46,16 +45,25 @@ $(function(){
                 <span class="loginInputIcon ">
                     <span class=" glyphicon glyphicon-user"></span>
                 </span>
-                <input id="name" name="id" placeholder="手机号" type="text">         
+                <input id="name" name="id" placeholder="手机号" type="text" value="${id}">
             </div>
              
             <div class="loginInput " >
                 <span class="loginInputIcon ">
                     <span class=" glyphicon glyphicon-lock"></span>
                 </span>
-                <input id="password" name="password" type="password" placeholder="密码" type="text">
+                <input id="password" name="password" type="password" placeholder="密码" type="text" style="">
             </div>
-             
+
+            <div class="loginInput ">
+                <span class="loginInputIcon ">
+                    <span class=" glyphicon glyphicon-lock"></span>
+                </span>
+                <input id="verifyCode" name="verifyCode" placeholder="验证码" type="text" style="width:140px;" />
+                <img src="img/verifies/vertify.jpg" width="100px" style="float:right;"/>
+            </div>
+
+
             <div>
                 <a class="notImplementLink" href="#nowhere">忘记登录密码</a> 
                 <a href="register.jsp" class="pull-right">免费注册</a> 
